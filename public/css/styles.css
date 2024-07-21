@@ -1,0 +1,128 @@
+body {
+    background-color: #f4f4f9;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 16px;
+}
+
+.form-group h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+input {
+    height: 40px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+button {
+    align-self: center;
+    margin-top: 20px;
+    height: 40px;
+    width: 100px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    background-color: #5cb85c;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+button:hover {
+    background-color: #4cae4c;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+#login-button {
+    margin-bottom: 10px;
+}
+
+.card {
+    margin-top: 20px;
+}
+
+.card-body {
+    display: flex;
+    justify-content: center;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    width: 100%;
+    justify-content: center;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+    background-color: #f8f9fa;
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+.btn svg {
+    margin-right: 10px;
+}
+
+/*adding new item page*/
+
+.book-notes {
+    height: 400px; /* Set height to 400 pixels */
+    width: 100%; /* Set width to 100% of its container */
+    padding: 10px; /* Add padding for spacing inside the input */
+    font-size: 16px; /* Increase font size for better readability */
+    border: 1px solid #ccc; /* Add a subtle border */
+    border-radius: 8px; /* Rounded corners for a softer look */
+    resize: vertical; /* Allow vertical resizing */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle box-shadow for depth */
+    transition: border-color 0.3s ease; /* Smooth transition for border color */
+}
+
+.book-notes:focus {
+    border-color: #5cb85c; /* Change border color on focus */
+    outline: none; /* Remove default focus outline */
+}
+
+/* Optional: Adjust appearance when disabled */
+.book-notes:disabled {
+    opacity: 0.6; /* Reduce opacity when disabled */
+    cursor: not-allowed; /* Change cursor on disabled state */
+}

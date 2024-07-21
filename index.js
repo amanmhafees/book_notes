@@ -8,6 +8,8 @@ import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import session from "express-session";
 import env from "dotenv";
 
+let currentUserId=0;
+
 const app = express();
 const port = 3000;
 const saltRounds = 10;
@@ -51,6 +53,9 @@ app.get("/logout", (req, res) => {
     }
     res.redirect("/");
   });
+});
+app.get("/add", (req, res) => {
+  res.render("add.ejs");
 });
 
 app.get("/books", (req, res) => {
@@ -107,11 +112,42 @@ app.post("/register", async (req, res) => {
               console.error("Error logging in after registration:", err);
               res.redirect("/login");
             } else {
+              currentUserId=result.rows[0];
               res.redirect("/books");
             }
           });
         }
       });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post("/login", async (req, res) => {
+  const email = req.body.username;
+  const loginPassword = req.body.password;
+
+  try {
+    const result = await db.query("SELECT * FROM users WHERE email = $1", [
+      email,
+    ]);
+    if (result.rows.length > 0) {
+      const user = result.rows[0];
+      const storedHashedPassword = user.password;
+      bcrypt.compare(loginPassword, storedHashedPassword, (err, result) => {
+        if (err) {
+          console.error("Error comparing passwords:", err);
+        } else {
+          if (result) {
+            res.render("books.ejs");
+          } else {
+            res.send("Incorrect Password");
+          }
+        }
+      });
+    } else {
+      res.send("User not found");
     }
   } catch (err) {
     console.log(err);
@@ -145,34 +181,6 @@ passport.use(
   })
 );
 
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/auth/google/books",
-      userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
-    },
-    async (accessToken, refreshToken, profile, done) => {
-      try {
-        const email = profile.emails[0].value;
-        const result = await db.query("SELECT * FROM users WHERE email = $1", [email]);
-        if (result.rows.length === 0) {
-          const newUser = await db.query(
-            "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *",
-            [email, "google"]
-          );
-          return done(null, newUser.rows[0]);
-        } else {
-          return done(null, result.rows[0]);
-        }
-      } catch (err) {
-        return done(err);
-      }
-    }
-  )
-);
-
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
@@ -189,6 +197,74 @@ passport.deserializeUser(async (id, done) => {
     done(err);
   }
 });
+
+
+async function submit(){
+  const title=document.getElementById('bookTitle').textContent;
+  const author=document.getElementById('author').textContent;
+  const coverImage=document.getElementById('coverImage').src;
+  const note=document.getElementById('bookNote').value;
+  const userId=currentUserId;
+
+  const result = await db.query("INSERT INTO notes (title, author, coverImage, note, userId) VALUES ($1, $2, $3, $4, $5)", [title, author, coverImage, note, userId]);
+  res.redirect("/books");
+}
+const books=[];
+app.get("/notes", async (req, res) => {
+  if (req.isAuthenticated()) {
+    try {
+      const userId = req.user.id;
+      const result = await db.query("SELECT * FROM notes WHERE userId = $1", [userId]);
+      res.json(result.rows);
+    } catch (err) {
+      console.error("Error fetching notes:", err);
+      res.status(500).send("Internal Server Error");
+    }
+  } else {
+    res.redirect("/login");
+  }
+});
+async function fetchUserNotes() {
+  try {
+      const response = await fetch('/notes');
+      if (response.ok) {
+          const notes = await response.json();
+          displayNotes(notes);
+      } else {
+          console.error('Failed to fetch notes');
+      }
+  } catch (error) {
+      console.error('Error fetching notes:', error);
+  }
+}
+
+function displayNotes(notes) {
+  const container = document.getElementById('notes-container');
+  container.innerHTML = ''; // Clear previous content
+
+  if (notes.length === 0) {
+      container.innerHTML = '<p>No notes found.</p>';
+      return;
+  }
+
+  notes.forEach(note => {
+      const noteElement = document.createElement('div');
+      noteElement.classList.add('note');
+
+      noteElement.innerHTML = `
+          <h2>${note.title}</h2>
+          <p><strong>Author:</strong> ${note.author}</p>
+          <img src="${note.coverimage}" alt="${note.title} Cover" style="max-width: 200px;">
+          <p>${note.note}</p>
+      `;
+
+      container.appendChild(noteElement);
+  });
+}
+
+
+
+
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

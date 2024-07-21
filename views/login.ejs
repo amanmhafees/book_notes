@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Login Form</title>
 </head>
 <body>
     <div class="container">
-        <h2>Login Form</h2>
         <form action="/login" method="POST">
             <div class="form-group">
+                <h2>Login Form</h2>
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
             </div>
@@ -17,17 +18,9 @@
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit">Login</button>
+            <button type="submit" id="login-button">Login</button>
         </form>
-        <div class="col-sm-4">
-            <div class="card">
-              <div class="card-body">
-                <a class="btn btn-block" href="/auth/google" role="button">
-                  <i class="fab fa-google"></i>
-                  Sign In with Google
-                </a>
-              </div>
-            </div>
+        </div>
     </div>
 </body>
 </html>

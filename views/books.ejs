@@ -1,9 +1,20 @@
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi volutpat tortor nibh, nec commodo lectus dignissim eget. Maecenas iaculis arcu a pulvinar consequat. Praesent porttitor laoreet malesuada. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse ultrices efficitur sem, id ullamcorper ipsum scelerisque eget. Quisque rhoncus libero vitae odio lacinia sollicitudin. Integer dapibus vehicula nisl, eget facilisis nunc finibus et. Nunc elit metus, finibus at euismod non, luctus sed leo. Ut molestie elit vel eros gravida, ac ultrices nisl vestibulum. Curabitur justo ex, consequat eu consectetur quis, aliquet ac magna. Cras ac iaculis ante, ac laoreet lectus. Ut id orci non velit dapibus varius vel vel arcu. Mauris at nulla vehicula, tincidunt neque sit amet, mattis metus.
-
-Ut pellentesque, dui sit amet maximus posuere, sapien libero iaculis risus, in egestas arcu enim ac est. Nulla at lectus non magna elementum blandit ac vel quam. Cras eget odio iaculis, euismod elit eget, laoreet lacus. Suspendisse quis nulla consequat tortor tincidunt pharetra id non quam. Fusce et diam pharetra, dictum quam non, tempus leo. Aenean commodo sed lectus vitae imperdiet. Fusce ultrices arcu laoreet sodales gravida. Suspendisse eget lorem mi. Suspendisse sed nibh vestibulum nulla efficitur rutrum sed a nibh. Mauris vitae nisl quis mi fermentum malesuada.
-
-Praesent at pellentesque magna, in vestibulum lectus. Nam id leo quis nisl dignissim finibus. Phasellus ac luctus felis, id tempor lectus. Duis imperdiet ornare quam vel cursus. Nullam rhoncus sodales pulvinar. Suspendisse vehicula nulla vitae augue dapibus, ullamcorper maximus mi maximus. In lacus magna, tristique sit amet mauris nec, interdum interdum quam. Phasellus imperdiet diam quis eros pellentesque, lobortis imperdiet tortor pulvinar. Proin at arcu lacinia, egestas ante ut, rhoncus dui. Etiam a neque porta, rutrum ipsum eget, gravida velit. Curabitur vestibulum viverra elit id bibendum.
-
-Nunc vitae nunc auctor, varius nulla vitae, congue lorem. Aliquam nec purus eu dolor faucibus sodales et vitae leo. Vivamus consequat sit amet arcu a pulvinar. Cras sit amet ornare nibh. Nulla efficitur nulla vitae dapibus ultrices. Nulla dignissim libero non neque rutrum ultrices. Quisque id sem mattis, congue eros at, placerat risus. Curabitur fermentum, massa a convallis gravida, metus erat sagittis orci, a maximus risus velit in felis. Sed quis rutrum metus, ac egestas velit. Integer eget tortor augue. Duis placerat tincidunt magna, id interdum mi lobortis a.
-
-Curabitur laoreet tincidunt nisl, sed sollicitudin mauris porttitor quis. Vivamus vitae mi sollicitudin arcu consectetur mattis. Proin id nulla a dolor eleifend vestibulum ut id urna. Phasellus quis diam elit. Donec porta scelerisque ex. Maecenas elementum, magna at interdum ullamcorper, nulla eros viverra mi, sed imperdiet neque lorem ut eros. Pellentesque id neque tristique dolor congue feugiat. Nunc vehicula eros varius eros auctor, vel dignissim lectus auctor. Fusce posuere risus elit. Curabitur quis lacus sit amet risus semper feugiat. Fusce vehicula condimentum ullamcorper.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+    <script defer src="index.js"></script> <!-- Link to your JavaScript file -->
+</head>
+<body>
+    <h1>Your Notes</h1>
+    <button type="button" onclick="location.href='/add'">Add</button>
+    <div id="notes-container">
+        <!-- Notes will be dynamically loaded here -->
+    </div>
+    <script>
+        // Fetch notes when the page loads
+        document.addEventListener('DOMContentLoaded', fetchUserNotes);
+    </script>
+</body>
+</html>
